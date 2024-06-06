@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 10:57:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/04 16:09:29 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/06 23:32:59 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ int	main(int argc, char **argv)
 	int i;
 
 	if (argc != 5)
-	{
-		write(2, "Error\n", 7);
-		return (1);
-	}
+		ft_error_message("Error\n");
 	i = 0;
 	while (argv[i])
 	{

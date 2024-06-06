@@ -6,8 +6,14 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 16:08:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/04 16:09:17 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/06 23:32:06 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void    ft_error_message(char *str)
+{
+    write(2, str, ft_strlen(str));
+    exit (1);
+}
