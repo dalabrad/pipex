@@ -1,40 +1,42 @@
 NAME = pipex
 
-LIB_NAME = libft.a
-PX_LIB_NAME = pipex.a
+LIBFT_DIR = ./libft
+LIBFT = $(LIBFT_DIR)/libft.a
 
-LIB_SRCS_DIR = ./libft
-LIB_SRCS = $(wildcard $(LIB_SRCS_DIR)/ft*.c)
-PX_LIB_SRCS = $(wildcard ./pipex*.c)
+PIPEX_LIB = pipex.a
+
+SRCS = $(wildcard ./pipex*.c)
 
 MAIN = main.c
 
-LIB_OBJS = $(LIB_SRCS:.c=.o)
-PX_LIB_OBJS = $(PX_LIB_SRCS:.c=.o)
+OBJS = $(SRCS:.c=.o)
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
-all: $(LIB_NAME) $(PX_LIB_NAME) $(NAME)
+all: $(LIBFT) $(PIPEX_LIB) $(NAME)
 
-$(LIB_NAME): $(LIB_OBJS)
-	ar rcs $(LIB_NAME) $(LIB_OBJS)
+$(LIBFT): 
+	make -C $(LIBFT_DIR)
+	echo libft.a created
 
-$(PX_LIB_NAME): $(PX_LIB_OBJS)
-	ar rcs $(PX_LIB_NAME) $(PX_LIB_OBJS)
+$(PIPEX_LIB): $(OBJS)
+	ar rcs $(PIPEX_LIB) $(OBJS)
 
-$(NAME): $(LIB_NAME) $(PX_LIB_NAME) $(MAIN)
-	$(CC) $(CFLAGS) -o $(NAME) $(MAIN) $(LIB_NAME) $(PX_LIB_NAME)
+$(NAME): $(LIBFT) $(PIPEX_LIB) $(MAIN)
+	$(CC) $(CFLAGS) -o $(NAME) $(MAIN) $(PIPEX_LIB) $(LIBFT)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(RM) $(LIB_OBJS) $(PX_LIB_OBJS)
+	$(RM) $(OBJS)
+	make -C $(LIBFT_DIR) clean
 
 fclean: clean
-	$(RM) $(LIB_NAME) $(PX_LIB_NAME) $(NAME)
+	$(RM) $(PIPEX_LIB) $(NAME)
+	make -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
