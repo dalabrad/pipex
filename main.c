@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 10:57:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/09 13:55:10 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/09 14:59:15 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ char	*get_paths(char **envp)
 	return (NULL);
 }
 
-char	*get_cmd_path(char	*cmd,char **paths_array)
+char	*get_cmd_path(char	*cmd, char **paths_array)
 {
 	char	*tmp;
 	char	*cmd_path;
 
-	while(*paths_array)
+	while (*paths_array)
 	{
 		tmp = ft_strjoin(*paths_array, "/");
 		cmd_path = ft_strjoin(tmp, cmd);

@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 12:33:13 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/09 13:53:54 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/09 14:58:13 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@
 # include <sys/uio.h>
 # include <errno.h>
 # include <fcntl.h>
+
+# define ERR_INFILE "Infile"
+# define ERR_OUTFILE "Outfile"
+# define ERR_INPUT "Invalid number of arguments.\n"
+# define ERR_PIPE "Pipe"
+# define ERR_CMD "Command not found\n"
+# define ERR_FORK "Fork" 
 
 typedef struct s_pipex
 {
