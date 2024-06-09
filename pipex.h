@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 16:04:58 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/06 23:32:44 by dalabrad         ###   ########.fr       */
+/*   Created: 2024/06/09 12:33:13 by dalabrad          #+#    #+#             */
+/*   Updated: 2024/06/09 12:52:17 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,29 @@
 
 # include "./libft/libft.h"
 # include <string.h>
+# include <stdio.h>
 # include <sys/wait.h>
+# include <sys/types.h>
+# include <sys/uio.h>
 # include <errno.h>
+# include <fcntl.h>
 
-void    ft_error_message(char *str);
+typedef struct s_pipex
+{
+	pid_t	pid1;
+	pid_t	pid2;
+	int		fd_pipe[2];
+	int		in_fd;
+	int		out_fd;
+	char	*paths;
+	char	**cmd_paths;
+	char	**cmd_args;
+	char	*cmd;
+}	t_pipex;
+
+//	pipex_error_msg.c
+
+int		error_msg(char *str);
+void	perror_msg(char	*str);
 
 #endif
