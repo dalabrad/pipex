@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 12:33:13 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/09 15:19:30 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/09 17:09:02 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,9 @@
 # include <errno.h>
 # include <fcntl.h>
 
-# define ERR_INFILE "Infile"
-# define ERR_OUTFILE "Outfile"
 # define ERR_INPUT "Invalid number of arguments.\n"
 # define ERR_PIPE "Pipe"
-# define ERR_CMD "Command not found\n"
-# define ERR_FORK "Fork" 
+# define ERR_FORK "Fork"
 
 typedef struct s_pipex
 {
@@ -45,6 +42,7 @@ typedef struct s_pipex
 //	pipex_error_msg.c
 
 int		error_msg(char *str);
+int		cmd_error_msg(char *cmd);
 void	perror_msg(char	*str);
 
 //	pipex_free.c
