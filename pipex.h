@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 12:33:13 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/09 12:52:17 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/09 13:53:54 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,18 @@ typedef struct s_pipex
 	int		in_fd;
 	int		out_fd;
 	char	*paths;
-	char	**cmd_paths;
-	char	**cmd_args;
-	char	*cmd;
+	char	**paths_array;
+	char	**cmd_argv;
+	char	*cmd_path;
 }	t_pipex;
 
 //	pipex_error_msg.c
 
 int		error_msg(char *str);
 void	perror_msg(char	*str);
+
+//	pipex_free.c
+
+void	free_array(char	**array);
 
 #endif
