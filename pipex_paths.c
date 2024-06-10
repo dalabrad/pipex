@@ -6,12 +6,20 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 12:22:01 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/10 13:04:42 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/10 14:04:05 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+/*
+ *
+ * This functions receives the array envp, then scans every
+ * string in it until finds the one that starts with: "PATH=".
+ * Then returns the pointer to the paths. Returns a string of paths
+ * separated with ':'
+ * 
+*/
 char	*get_paths(char **envp)
 {
 	int		i;
@@ -26,6 +34,14 @@ char	*get_paths(char **envp)
 	return (NULL);
 }
 
+/*
+ *
+ * This functions test all the paths in the paths_array + "/" + cmd 
+ * to test if the command exeutable file is in any of them. Then returns
+ * the path of the executable file of the command cmd if exist
+ * or a NULL pointer if it doesn't
+ * 
+*/
 char	*get_cmd_path(char	*cmd, char **paths_array)
 {
 	char	*tmp;

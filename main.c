@@ -6,12 +6,17 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 10:57:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/10 13:02:23 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/10 14:00:39 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+/*
+ *
+ * This functions closes the piped fd array.
+ * 
+*/
 void	close_pipe(t_pipex *pipex)
 {
 	close(pipex->fd_pipe[0]);
