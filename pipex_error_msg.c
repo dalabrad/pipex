@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 16:08:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/09 16:57:14 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:32:38 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int	error_msg(char *str)
 	return (1);
 }
 
-int	cmd_error_msg(char *cmd)
+int	cmd_not_found(char *cmd)
 {
-	ft_putstr_fd("Command '", 2);
+	ft_putstr_fd("zsh: command not found: ", 2);
 	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd("' not  found.\n", 2);
+	ft_putstr_fd("\n", 2);
 	return (1);
 }
 
