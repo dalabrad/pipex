@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 10:57:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/10 14:00:39 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:11:16 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,14 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
 
-	if (argc != 3)
+	if (argc != 5)
 		return (error_msg(ERR_INPUT));
+	pipex.in_fd = open(argv[1], O_RDONLY);
+	if (pipex.in_fd < 0)
+		file_error(argv[1]);
+	pipex.out_fd = open(argv[4], O_TRUNC | O_CREAT | O_RDWR, 0000644);
+	if (pipex.out_fd < 0)
+		file_error(argv[4]);
 	if (pipe(pipex.fd_pipe) < 0)
 		perror_msg(ERR_PIPE);
 	pipex.paths = get_paths(envp);
@@ -42,6 +48,6 @@ int	main(int argc, char **argv, char **envp)
 	close_pipe(&pipex);
 	waitpid(pipex.pid1, NULL, 0);
 	waitpid(pipex.pid2, NULL, 0);
-	free_parent(&pipex);
+	free_parent_closefd(&pipex);
 	return (0);
 }

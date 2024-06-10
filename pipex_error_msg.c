@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 16:08:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/10 14:03:18 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:52:03 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	error_msg(char *str)
 
 /*
  *
- * This functions prints "zsh: command not found: cmd" in 
+ * This functions prints "zsh: command not found: cmd\n" in 
  * stderr and returns 1.
  * 
 */
@@ -35,6 +35,20 @@ int	cmd_not_found(char *cmd)
 	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd("\n", 2);
 	return (1);
+}
+
+/*
+ *
+ * This functions prints "zsh: no such file or directory: filename\n" in 
+ * stderr and calls exit (1).
+ * 
+*/
+void	file_error(char *file_name)
+{
+	ft_putstr_fd("zsh: no such file or directory: ", 2);
+	ft_putstr_fd(file_name, 2);
+	ft_putstr_fd("\n", 2);
+	exit (1);
 }
 
 /*
