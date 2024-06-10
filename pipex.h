@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 12:33:13 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/10 16:11:21 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:42:38 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <errno.h>
 # include <fcntl.h>
 
-# define ERR_INPUT "Invalid number of arguments.\n"
+# define ERR_INPUT "Error, use: ./pipex infile cmd1 cmd2 outfile\n"
 # define ERR_PIPE "Pipe"
 # define ERR_FORK "Fork"
 
