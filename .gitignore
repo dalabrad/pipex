@@ -10,7 +10,7 @@ pipex
 
 a.out
 
-infile
+infile*
 
-outfile
+outfile*
 
