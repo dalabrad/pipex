@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 10:57:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/13 12:48:40 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:17:55 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 5)
 		px_perror_exit(NULL, INV_ARGS);
 	pipex.in_fd = open(argv[1], O_RDONLY);
-	pipex.out_fd = open(argv[4], O_TRUNC | O_CREAT | O_RDWR, 0000644);
-	if (pipex.out_fd < 0)
-		pipex_error_msg(argv[4], NO_MEMORY);
+	pipex.out_fd = open(argv[4], O_TRUNC | O_CREAT | O_WRONLY, 0000644);
 	if (pipe(pipex.fd_pipe) < 0)
 		px_perror_exit(NULL, PIPE_ERR);
 	pipex.paths = get_paths(envp);
