@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 11:45:20 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/13 16:35:35 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:47:06 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	first_child(t_pipex *pipex, char **argv, char **envp)
 	if (dup2(pipex->in_fd, STDIN_FILENO) == -1)
 		px_perror_exit(NULL, DUP_ERR);
 	pipex->cmd_argv = ft_split(argv[2], ' ');
+	if (!pipex->cmd_argv)
+		malloc_error_exit();
 	pipex->cmd_path = get_cmd_path(pipex->cmd_argv[0], pipex->paths_array);
 	if (!pipex->cmd_path)
 	{
@@ -67,6 +69,8 @@ void	second_child(t_pipex *pipex, char **argv, char **envp)
 	if (dup2(pipex->out_fd, STDOUT_FILENO) == -1)
 		px_perror_exit(NULL, DUP_ERR);
 	pipex->cmd_argv = ft_split(argv[3], ' ');
+	if (!pipex->cmd_argv)
+		malloc_error_exit();
 	pipex->cmd_path = get_cmd_path(pipex->cmd_argv[0], pipex->paths_array);
 	if (!pipex->cmd_path)
 	{
