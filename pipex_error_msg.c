@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 16:08:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/13 12:55:36 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:29:32 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,14 @@ void	px_perror_exit(char *param, int err)
 {
 	pipex_error_msg(param, err);
 	exit (err);
+}
+
+/*
+* Shows an error message when malloc() fails,
+* ten exits the program.
+*/
+void	malloc_error_exit(void)
+{
+	ft_putstr_fd("pipex: could not allocate memory", 2);
+	exit (ERR_MALLOC);
 }

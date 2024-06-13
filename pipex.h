@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 12:33:13 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/13 12:48:49 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:30:21 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 enum e_pipex_error
 {
-	END = 1,
+	OK_END = 0,
 	CMD_NOT_FOUND = -1,
 	NO_FILE = -2,
 	NO_PERM = -3,
@@ -36,7 +36,8 @@ enum e_pipex_error
 	DUP_ERR = -7,
 	FORK_ERR = -8,
 	NO_PATH = -9,
-	CMD_FAIL = -10
+	CMD_FAIL = -10,
+	ERR_MALLOC = -11
 };
 
 typedef struct s_pipex
@@ -46,7 +47,6 @@ typedef struct s_pipex
 	int		fd_pipe[2];
 	int		in_fd;
 	int		out_fd;
-	char	*paths;
 	char	**paths_array;
 	char	**cmd_argv;
 	char	*cmd_path;
@@ -57,6 +57,8 @@ typedef struct s_pipex
 void	pipex_error_msg(char *param, int err);
 void	px_error_free(t_pipex *pipex, char *param, int err);
 void	px_perror_exit(char *param, int err);
+void	malloc_error_exit(void);
+
 //	pipex_free.c
 
 void	free_child(t_pipex *pipex);
@@ -64,7 +66,7 @@ void	free_parent_closefd(t_pipex *pipex);
 
 //pipex_paths.c
 
-char	*get_paths(char **envp);
+char	**pipex_path_array(char **envp);
 char	*get_cmd_path(char	*cmd, char **paths_array);
 
 //	pipex_childs.c
