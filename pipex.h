@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 12:33:13 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/13 12:20:59 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/13 12:48:49 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_pipex
 
 void	pipex_error_msg(char *param, int err);
 void	px_error_free(t_pipex *pipex, char *param, int err);
-void	px_perror_exit(t_pipex *pipex, char *param, int err);
+void	px_perror_exit(char *param, int err);
 //	pipex_free.c
 
 void	free_child(t_pipex *pipex);

@@ -6,12 +6,16 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 16:08:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/13 12:30:46 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/13 12:55:36 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+/*
+* Shows an error message in the form:
+* 	pipex: err_type (: param if needed)
+*/
 void	pipex_error_msg(char *param, int err)
 {
 	ft_putstr_fd("pipex: ", 2);
@@ -41,6 +45,13 @@ void	pipex_error_msg(char *param, int err)
 	ft_putstr_fd("\n", 2);
 }
 
+/*
+* Shows an error message in the form:
+* 	pipex: err_type (: param if needed)
+* and frees the child process memory if:
+*	~ err = CMD_NOT_FOUND
+*	~ err = CMD_FAIL
+*/
 void	px_error_free(t_pipex *pipex, char *param, int err)
 {
 	pipex_error_msg(param, err);
@@ -48,7 +59,14 @@ void	px_error_free(t_pipex *pipex, char *param, int err)
 		free_child(pipex);
 }
 
-void	px_perror_exit(t_pipex *pipex, char *param, int err)
+/*
+* Shows an error message in the form:
+* 	pipex: err_type (: param if needed)
+* and executes exit(err).
+* Useful for finishing all the processes if 
+* an error occurs.
+*/
+void	px_perror_exit(char *param, int err)
 {
 	pipex_error_msg(param, err);
 	exit (err);
