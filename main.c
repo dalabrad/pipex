@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 10:57:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/13 15:18:44 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:40:12 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char **argv, char **envp)
 	pipex.pid2 = fork();
 	if (pipex.pid2 == -1)
 		px_perror_exit(NULL, FORK_ERR);
-	if (pipex.pid2 == 0 && pipex.pid1 == 0)
+	if (pipex.pid2 == 0 && pipex.pid1 != 0)
 		second_child(&pipex, argv, envp);
 	free_parent_closefd(&pipex);
 	return (0);
