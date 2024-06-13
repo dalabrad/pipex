@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 11:45:20 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/13 14:06:07 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:52:01 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ void	first_child(t_pipex *pipex, char **argv, char **envp)
 			pipex_error_msg(argv[1], NO_FILE);
 		return ;
 	}
-	dup2(pipex->fd_pipe[1], STDIN_FILENO);
+	if (dup2(pipex->fd_pipe[1], STDOUT_FILENO) == -1)
+		px_perror_exit(NULL, DUP_ERR);
 	close(pipex->fd_pipe[1]);
-	dup2(pipex->in_fd, STDOUT_FILENO);
+	if (dup2(pipex->in_fd, STDIN_FILENO) == -1)
+		px_perror_exit(NULL, DUP_ERR);
 	pipex->cmd_argv = ft_split(argv[2], ' ');
 	pipex->cmd_path = get_cmd_path(pipex->cmd_argv[0], pipex->paths_array);
 	if (!pipex->cmd_path)
@@ -58,9 +60,11 @@ void	second_child(t_pipex *pipex, char **argv, char **envp)
 			pipex_error_msg(argv[4], NO_MEMORY);
 		return ;
 	}
-	dup2(pipex->fd_pipe[0], STDIN_FILENO);
-	close(pipex->fd_pipe[1]);
-	dup2(pipex->out_fd, STDOUT_FILENO);
+	if (dup2(pipex->fd_pipe[0], STDIN_FILENO) == -1)
+		px_perror_exit(NULL, DUP_ERR);
+	waitpid(pipex->pid1, NULL, 0);
+	if (dup2(pipex->out_fd, STDOUT_FILENO) == -1)
+		px_perror_exit(NULL, DUP_ERR);
 	pipex->cmd_argv = ft_split(argv[3], ' ');
 	pipex->cmd_path = get_cmd_path(pipex->cmd_argv[0], pipex->paths_array);
 	if (!pipex->cmd_path)
