@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 12:33:13 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/10 16:42:38 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/13 12:20:59 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,22 @@
 # include <errno.h>
 # include <fcntl.h>
 
-# define ERR_INPUT "Error, use: ./pipex infile cmd1 cmd2 outfile\n"
-# define ERR_PIPE "Pipe"
-# define ERR_FORK "Fork"
+# define ERR_INPUT "unvalid argc, use: ./pipex infile cmd1 cmd2 outfile"
+
+enum e_pipex_error
+{
+	END = 1,
+	CMD_NOT_FOUND = -1,
+	NO_FILE = -2,
+	NO_PERM = -3,
+	INV_ARGS = -4,
+	NO_MEMORY = -5,
+	PIPE_ERR = -6,
+	DUP_ERR = -7,
+	FORK_ERR = -8,
+	NO_PATH = -9,
+	CMD_FAIL = -10
+};
 
 typedef struct s_pipex
 {
@@ -41,11 +54,9 @@ typedef struct s_pipex
 
 //	pipex_error_msg.c
 
-int		error_msg(char *str);
-int		cmd_not_found(char *cmd);
-void	perror_msg(char	*str);
-void	file_error(char *file_name);
-
+void	pipex_error_msg(char *param, int err);
+void	px_error_free(t_pipex *pipex, char *param, int err);
+void	px_perror_exit(t_pipex *pipex, char *param, int err);
 //	pipex_free.c
 
 void	free_child(t_pipex *pipex);
@@ -58,7 +69,7 @@ char	*get_cmd_path(char	*cmd, char **paths_array);
 
 //	pipex_childs.c
 
-void	first_child(t_pipex pipex, char **argv, char **envp);
-void	second_child(t_pipex pipex, char **argv, char **envp);
+void	first_child(t_pipex *pipex, char **argv, char **envp);
+void	second_child(t_pipex *pipex, char **argv, char **envp);
 
 #endif
