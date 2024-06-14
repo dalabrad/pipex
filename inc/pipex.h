@@ -6,14 +6,14 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 12:33:13 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/13 16:11:33 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:58:41 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "./libft/libft.h"
+# include "../libft/libft.h"
 # include <string.h>
 # include <stdio.h>
 # include <sys/wait.h>

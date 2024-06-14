@@ -6,11 +6,11 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 11:45:20 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/13 16:47:06 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:59:02 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../inc/pipex.h"
 
 /*
  * FIRST CHILD PROCESS: 

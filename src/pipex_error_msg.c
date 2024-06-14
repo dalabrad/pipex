@@ -6,11 +6,11 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 16:08:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/13 16:06:18 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:59:09 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../inc/pipex.h"
 
 /*
 * Shows an error message in the form:
