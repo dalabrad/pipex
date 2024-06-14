@@ -5,9 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/14 11:07:17 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/14 11:08:09 by dalabrad         ###   ########.fr       */
+/*   Created: 2024/06/14 12:03:24 by dalabrad          #+#    #+#             */
+/*   Updated: 2024/06/14 12:04:52 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/pipex_bonus.h"
+
+int	main(void)
+{
+	prueba();
+	return (0);
+}
