@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 12:33:13 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/14 10:58:41 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/14 11:17:26 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	px_error_free(t_pipex *pipex, char *param, int err);
 void	px_perror_exit(char *param, int err);
 void	malloc_error_exit(void);
 
-//	pipex_free.c
+//	pipex_free_close.c
 
 void	free_child(t_pipex *pipex);
 void	free_parent_closefd(t_pipex *pipex);
