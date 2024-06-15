@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:03:24 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/15 12:08:16 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/15 12:18:13 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv, char **envp)
 	limiter = ft_strjoin(argv[2], "\n"); 
 	while (1)
 	{
-		write (1, ">", 1);
+		write (1, "> ", 2);
 		line = get_next_line(0);
 		if (!ft_strncmp(line, limiter, ft_strlen(line)) || !line)
 		{
