@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 12:33:13 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/14 11:17:26 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/15 11:46:15 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	malloc_error_exit(void);
 
 //	pipex_free_close.c
 
+void	free_array(char	**array);
 void	free_child(t_pipex *pipex);
 void	free_parent_closefd(t_pipex *pipex);
 

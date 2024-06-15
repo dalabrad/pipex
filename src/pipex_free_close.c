@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 13:31:56 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/14 10:59:16 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/15 11:46:16 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * This functions frees an array and points it to NULL.
  * 
 */
-static void	free_array(char	**array)
+void	free_array(char	**array)
 {
 	size_t	i;
 
