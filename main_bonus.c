@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:03:24 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/17 17:18:35 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:45:22 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ int	main(int argc, char **argv, char **envp)
 	}
 	else if (ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])) && argc >= 5)
 	{
-		pipex.here_doc = false;
-		pipex.n_cmd = argc - 3;
+		ft_putstr_fd("pipex: multiple pipe implementation coming soon\n", 2);
+		exit (0);
+/* 		pipex.here_doc = false;
+		pipex.n_cmd = argc - 3; */
 	}
 	else
 		pxb_perror_exit(INV_ARGS);
