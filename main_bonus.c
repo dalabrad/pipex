@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:03:24 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/17 16:57:41 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:14:47 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	main(int argc, char **argv, char **envp)
 	pipex.pid[0] = fork(); //first child
 	if (pipex.pid[0] == 0)
 		pxb_first_child(&pipex, argv, envp);
-	/* {
+	/* { -----FIRST CHILD'S CODE-----
  		dup2(pipex.pipe[1], STDOUT_FILENO);
 		pxb_close_pipes(&pipex, 1);
 		dup2(pipex.in_fd, STDIN_FILENO);
@@ -91,7 +91,7 @@ int	main(int argc, char **argv, char **envp)
 	pipex.pid[1] = fork(); //second child
 	if (pipex.pid[1] == 0 && pipex.pid[0] != 0)
 		pxb_last_child(&pipex, argv, envp);
-	/* {
+	/* { -----SECOND CHILD'S CODE-----
 		if (dup2(pipex.pipe[0], STDIN_FILENO) == -1)
 			px_perror_exit(NULL, DUP_ERR);
 		pxb_close_pipes(&pipex, 0);
@@ -102,6 +102,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_putstr_fd("Second command executing...\n", 2);
 		execve(pipex.cmd_path, pipex.cmd_argv, envp);
 	} */
+	// ERROR DOING EXECVE(wc -l) IN SECOND CHILD, DKH TO SOLVE IT
 	waitpid(pipex.pid[1], NULL, 0);
 	if (pipex.pid[0] && pipex.pid[1])
 		ft_putstr_fd("Second child finished\n", 2);
