@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:03:24 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/17 17:14:47 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:18:35 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@ int	main(int argc, char **argv, char **envp)
 	int				i;
 	t_pipex_bonus	pipex;
 	
-	if (argc < 5)
-		pxb_perror_exit(INV_ARGS);
 	if (!ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])) && argc == 6)
 	{
 		pipex.here_doc = true;
 		pipex.n_cmd = 2;
 	}
-	else if (ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])))
+	else if (ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])) && argc >= 5)
 	{
 		pipex.here_doc = false;
 		pipex.n_cmd = argc - 3;
 	}
+	else
+		pxb_perror_exit(INV_ARGS);
 	// The rest is for pipex.here_doc == true.
 	pipex.in_fd = open("/tmp/.here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0000644);
 	if (pipex.in_fd  < 0)
