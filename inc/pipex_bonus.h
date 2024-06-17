@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:03:24 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/17 16:58:07 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:02:42 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	pxb_close_pipes(t_pipex_bonus *pipex, int no_close);
 
 //	pipex_childs_bonus.c
 
-void    pxb_first_child(t_pipex_bonus *pipex, char **argv, char **envp);
-void    pxb_last_child(t_pipex_bonus *pipex, char **argv, char **envp);
+void	pxb_first_child(t_pipex_bonus *pipex, char **argv, char **envp);
+void	pxb_last_child(t_pipex_bonus *pipex, char **argv, char **envp);
 
 #endif
