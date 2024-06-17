@@ -6,13 +6,33 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:07:05 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/14 11:47:33 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/17 13:28:26 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex_bonus.h"
 
-void	prueba(void)
+/*
+ * Puts the error message for the error type err.
+ *
+*/
+void	pxb_error_msg(int err)
 {
-	ft_printf("Makefile funcionando para el bonus\n");
+	ft_putstr_fd("pipex: ", 2);
+	if (err == INV_ARGS)
+	{
+		ft_putstr_fd("invalid arguments, use: ", 2);
+		ft_putstr_fd("./pipex infile cmd1 cmd2 ... comandon outfile or ", 2);
+		ft_putstr_fd("./pipex here_doc LIMITER cmd1 cmd2 outfile", 2);
+	}
+	else if (err == ERR_HEREDOC)
+		ft_putstr_fd("error opening here_doc", 2);
+	else if (err == ERR_RDHEREDOC)
+		ft_putstr_fd("error reading from here_doc", 2);
+}
+
+void	pxb_perror_exit(int err)
+{
+	pxb_error_msg(err);
+	exit (err);
 }
