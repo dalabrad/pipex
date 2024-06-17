@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:03:24 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/17 13:23:41 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:57:41 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,44 +66,45 @@ int	main(int argc, char **argv, char **envp)
 		}
 		i++;
 	}
-	ft_printf("Pipes created succesfully\n");
-	pipex.in_fd = open("/tmp/.here_doc", O_RDONLY); //opening the here_doc for reading
+	pipex.in_fd = open("/tmp/.here_doc", O_RDONLY, 0000644); //opening the here_doc for reading
 	if (pipex.in_fd < 0)
 		pxb_perror_exit(ERR_RDHEREDOC);
-	ft_printf("Here_doc opened succesfully\n");
 	pipex.out_fd = open (argv[5], O_APPEND | O_CREAT | O_WRONLY, 0000644); //opening the outfile in append mode
 	if (pipex.out_fd < 0)
 		px_perror_exit(argv[5], NO_FILE);
-	ft_printf("outfile opened succesfully\n");
 	pipex.paths_array = pipex_path_array(envp);
-	pipex.pid = fork(); //first child
-	if (pipex.pid == 0)
-	{
+	pipex.pid = (pid_t *)malloc(sizeof(pid_t) * pipex.n_cmd);
+	pipex.pid[0] = fork(); //first child
+	if (pipex.pid[0] == 0)
+		pxb_first_child(&pipex, argv, envp);
+	/* {
  		dup2(pipex.pipe[1], STDOUT_FILENO);
 		pxb_close_pipes(&pipex, 1);
 		dup2(pipex.in_fd, STDIN_FILENO);
 		pipex.cmd_argv = ft_split(argv[3], ' ');
 		pipex.cmd_path = get_cmd_path(pipex.cmd_argv[0], pipex.paths_array);
-		ft_putstr_fd(pipex.cmd_path, 2);
-		ft_putstr_fd("\n", 2);
 		ft_putstr_fd("First command executing...\n", 2);
 		execve(pipex.cmd_path, pipex.cmd_argv, envp);
-	}
-	waitpid(pipex.pid, NULL, 0);
+	} */
+	waitpid(pipex.pid[0], NULL, 0);
 	ft_putstr_fd("First child finished\n", 2);
-	pipex.pid = fork(); //second child
-	if (pipex.pid == 0)
-	{
-		dup2(pipex.pipe[0], STDIN_FILENO);
+	pipex.pid[1] = fork(); //second child
+	if (pipex.pid[1] == 0 && pipex.pid[0] != 0)
+		pxb_last_child(&pipex, argv, envp);
+	/* {
+		if (dup2(pipex.pipe[0], STDIN_FILENO) == -1)
+			px_perror_exit(NULL, DUP_ERR);
 		pxb_close_pipes(&pipex, 0);
-		dup2(pipex.out_fd, STDOUT_FILENO);
+		if (dup2(pipex.out_fd, STDOUT_FILENO) == -1)
+			px_perror_exit(NULL, DUP_ERR);
 		pipex.cmd_argv = ft_split(argv[4], ' ');
 		pipex.cmd_path = get_cmd_path(pipex.cmd_argv[0], pipex.paths_array);
-		ft_putstr_fd(pipex.cmd_path, 2);
-		ft_putstr_fd("\n", 2);
 		ft_putstr_fd("Second command executing...\n", 2);
 		execve(pipex.cmd_path, pipex.cmd_argv, envp);
-	}
+	} */
+	waitpid(pipex.pid[1], NULL, 0);
+	if (pipex.pid[0] && pipex.pid[1])
+		ft_putstr_fd("Second child finished\n", 2);
 	pxb_freeparent_closefd(&pipex);
 	ft_printf("Parent finished.\n");
 	return (0);
