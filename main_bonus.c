@@ -6,39 +6,42 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:03:24 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/18 11:07:52 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:13:25 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/pipex_bonus.h"
 
+/*
+ * Here_doc (reading from stdin) implementation
+*/
 static void	pxb_here_doc(t_pipex_bonus *pipex, char **argv)
 {
-		char *line;
+	char	*line;
 
-		pipex->limiter = ft_strjoin(argv[2], "\n");
-		if (!pipex->limiter)
-			malloc_error_exit();
-		while (1) //here_doc reading implementation.
+	pipex->limiter = ft_strjoin(argv[2], "\n");
+	if (!pipex->limiter)
+		malloc_error_exit();
+	while (1)
+	{
+		write (1, "> ", 2);
+		line = get_next_line(0);
+		if (!line)
 		{
-			write (1, "> ", 2);
-			line = get_next_line(0);
-			if (!line)
-			{
-				free (pipex->limiter);
-				ft_putchar_fd('\n', 2);
-				pxb_perror_exit(ERR_HEREDOC_EOF, argv[2]);
-			}
-			if (!ft_strncmp(line, pipex->limiter, ft_strlen(line)))
-			{
-				free(line);
-				break ;
-			}
-			write(pipex->in_fd, line, ft_strlen(line));
-			free(line);
+			free (pipex->limiter);
+			ft_putchar_fd('\n', 2);
+			pxb_perror_exit(ERR_HEREDOC_EOF, argv[2]);
 		}
-		close(pipex->in_fd);
-		free (pipex->limiter);
+		if (!ft_strncmp(line, pipex->limiter, ft_strlen(line)))
+		{
+			free(line);
+			break ;
+		}
+		write(pipex->in_fd, line, ft_strlen(line));
+		free(line);
+	}
+	close(pipex->in_fd);
+	free (pipex->limiter);
 }
 
 int	main(int argc, char **argv, char **envp)
