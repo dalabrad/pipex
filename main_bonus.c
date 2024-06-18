@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:03:24 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/18 17:49:14 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:07:47 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,7 @@ int	main(int argc, char **argv, char **envp)
 	if (!ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])) && argc == 6)
 		pxb_here_doc(&pipex, argv);
 	else if (ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])) && argc >= 5)
-	{
-		ft_putstr_fd("pipex: multiple pipe implementation coming soon\n", 2);
-		exit (0);
-		//pipex.here_doc = false;
-	}
+		pipex.here_doc = false;
 	else
 		pxb_perror_exit(INV_ARGS, NULL);
 	pxb_init_pipex(&pipex, argc, argv, envp);
