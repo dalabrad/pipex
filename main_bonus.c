@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:03:24 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/18 16:17:37 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:19:54 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,41 @@ static void	pxb_create_pipes(t_pipex_bonus *pipex)
 	}
 }
 
-/* static bool pxb_child_from_parent(t_pipex_bonus pipex, int child_index)
+/*
+ * Function to open infile and outfile and store the fd
+ * in the pipe struct. Takes into account both situations:
+ * 		~ here_doc = true -> infile: here_doc, outfile (append)
+ * 		~ here_doc = false -> infile, outfile (truncate)
+*/
+static void	pxb_open_files(t_pipex_bonus *pipex, int argc, char **argv)
 {
-	int	i;
+	if (pipex->here_doc)
+		pipex->in_fd = open("/tmp/.here_doc", O_RDONLY, 0000644);
+	else
+		pipex->in_fd = open(argv[1], O_RDONLY);
+	if (pipex->in_fd < 0)
+		pxb_perror_exit(ERR_RDHEREDOC, NULL);
+	if (pipex->here_doc)
+		pipex->out_fd = open (argv[5], O_APPEND | O_CREAT | O_WRONLY, 0000644);
+	else
+		pipex->out_fd = open(argv[argc - 1], O_TRUNC | O_CREAT | 01, 0000644);
+	if (pipex->out_fd < 0)
+		px_perror_exit(argv[5], NO_FILE);
+}
 
-	i = 0;
-	while (i < child_index)
-	{
-		if (pipex.pid[i] == 0)
-			return (false);
-	}
-	return (true);
-} */
+static void pxb_init_pipex(t_pipex_bonus *pipex, int argc, char **argv, char **envp)
+{
+	if (pipex->here_doc)
+		pipex->n_cmd = 2;
+	else
+		pipex->n_cmd = argc - 3;
+	pxb_open_files(pipex, argc, argv);
+	pipex->paths_array = pipex_path_array(envp);
+	pipex->pid = (pid_t *)malloc(sizeof(pid_t) * pipex->n_cmd);
+	if (!pipex->pid)
+		malloc_error_exit();
+	pxb_create_pipes(pipex);
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -87,7 +110,6 @@ int	main(int argc, char **argv, char **envp)
 	if (!ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])) && argc == 6)
 	{
 		pipex.here_doc = true;
-		pipex.n_cmd = 2;
 		pipex.in_fd = open("/tmp/.here_doc", O_CREAT | 01 | O_TRUNC, 0000644);
 		if (pipex.in_fd < 0)
 			pxb_perror_exit(ERR_HEREDOC, NULL);
@@ -97,20 +119,11 @@ int	main(int argc, char **argv, char **envp)
 	{
 		ft_putstr_fd("pipex: multiple pipe implementation coming soon\n", 2);
 		exit (0);
-/* 		pipex.here_doc = false;
-		pipex.n_cmd = argc - 3; */
+		//pipex.here_doc = false;
 	}
 	else
 		pxb_perror_exit(INV_ARGS, NULL);
-	pxb_create_pipes(&pipex);
-	pipex.in_fd = open("/tmp/.here_doc", O_RDONLY, 0000644);
-	if (pipex.in_fd < 0)
-		pxb_perror_exit(ERR_RDHEREDOC, NULL);
-	pipex.out_fd = open (argv[5], O_APPEND | O_CREAT | O_WRONLY, 0000644);
-	if (pipex.out_fd < 0)
-		px_perror_exit(argv[5], NO_FILE);
-	pipex.paths_array = pipex_path_array(envp);
-	pipex.pid = (pid_t *)malloc(sizeof(pid_t) * pipex.n_cmd);
+	pxb_init_pipex(&pipex, argc, argv, envp);
 	i = 0;
 	while (i < pipex.n_cmd)
 	{
