@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:48:52 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/18 16:44:14 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:44:26 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void	pxb_first_child(t_pipex_bonus *pipex, char **argv, char **envp)
 	dup2(pipex->pipe[1], STDOUT_FILENO);
 	pxb_close_pipes(pipex);
 	dup2(pipex->in_fd, STDIN_FILENO);
-	pipex->cmd_argv = ft_split(argv[3], ' ');
+	if (pipex->here_doc)
+		pipex->cmd_argv = ft_split(argv[3], ' ');
+	else
+		pipex->cmd_argv = ft_split(argv[2], ' ');
 	pipex->cmd_path = get_cmd_path(pipex->cmd_argv[0], pipex->paths_array);
 	ft_putstr_fd("First command executing...\n", 2);
 	execve(pipex->cmd_path, pipex->cmd_argv, envp);
@@ -30,7 +33,10 @@ void	pxb_last_child(t_pipex_bonus *pipex, char **argv, char **envp)
 	pxb_close_pipes(pipex);
 	if (dup2(pipex->out_fd, STDOUT_FILENO) == -1)
 		px_perror_exit(NULL, DUP_ERR);
-	pipex->cmd_argv = ft_split(argv[4], ' ');
+	if (pipex->here_doc)
+		pipex->cmd_argv = ft_split(argv[4], ' ');
+	else
+		pipex->cmd_argv = ft_split(argv[pipex->n_cmd + 1], ' ');
 	pipex->cmd_path = get_cmd_path(pipex->cmd_argv[0], pipex->paths_array);
 	ft_putstr_fd("last command executing...\n", 2);
 	execve(pipex->cmd_path, pipex->cmd_argv, envp);
@@ -43,7 +49,7 @@ void	pxb_middle_child(t_pipex_bonus *pipex, char **argv, char **envp, int i)
 	if (dup2(pipex->pipe[(i + 1) * 2 - 1], STDOUT_FILENO) == -1)
 		px_perror_exit(NULL, DUP_ERR);
 	pxb_close_pipes(pipex);
-	pipex->cmd_argv = ft_split(argv[4], ' ');
+	pipex->cmd_argv = ft_split(argv[i + 2], ' ');
 	pipex->cmd_path = get_cmd_path(pipex->cmd_argv[0], pipex->paths_array);
 	ft_putchar_fd('0' + i + 1, 2);
 	ft_putstr_fd("º command executing...\n", 2);
