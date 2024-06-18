@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:48:52 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/18 18:44:26 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:37:30 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 void	pxb_first_child(t_pipex_bonus *pipex, char **argv, char **envp)
 {
-	dup2(pipex->pipe[1], STDOUT_FILENO);
+	if (dup2(pipex->pipe[1], STDOUT_FILENO) == -1)
+		px_perror_exit(NULL, DUP_ERR);
 	pxb_close_pipes(pipex);
-	dup2(pipex->in_fd, STDIN_FILENO);
+	if (dup2(pipex->in_fd, STDIN_FILENO) == -1)
+		px_perror_exit(NULL, DUP_ERR);
 	if (pipex->here_doc)
 		pipex->cmd_argv = ft_split(argv[3], ' ');
 	else

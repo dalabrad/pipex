@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:03:24 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/18 18:07:47 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:34:54 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,20 @@ static void	pxb_init_pipex(t_pipex_bonus *pipex, int argc, char **argv,
 	pxb_create_pipes(pipex);
 }
 
+static bool	pxb_child_from_parent(t_pipex_bonus pipex, int child_index)
+{
+	int	i;
+
+	i = 0;
+	while (i < child_index)
+	{
+		if (pipex.pid[i] == 0)
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex_bonus	pipex;
@@ -87,7 +101,7 @@ int	main(int argc, char **argv, char **envp)
 	while (i < pipex.n_cmd)
 	{
 		pipex.pid[i] = fork();
-		if (pipex.pid[i] == 0)
+		if (pipex.pid[i] == 0 && pxb_child_from_parent(pipex, i))
 			pxb_child_selector(&pipex, argv, envp, i);
 		i++;
 	}
