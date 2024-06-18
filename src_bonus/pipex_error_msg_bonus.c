@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:07:05 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/17 13:53:34 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:08:14 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * Puts the error message for the error type err.
  *
 */
-void	pxb_error_msg(int err)
+void	pxb_error_msg(int err, char *param)
 {
 	ft_putstr_fd("pipex: ", 2);
 	if (err == INV_ARGS)
@@ -29,10 +29,17 @@ void	pxb_error_msg(int err)
 		ft_putstr_fd("error opening here_doc\n", 2);
 	else if (err == ERR_RDHEREDOC)
 		ft_putstr_fd("error reading from here_doc\n", 2);
+	else if (err == ERR_HEREDOC_EOF)
+		ft_putstr_fd("here_doc terminated with end-of-file, expected ", 2);
+	if (err == ERR_HEREDOC_EOF)
+	{
+		ft_putstr_fd(param, 2);
+		ft_putchar_fd('\n', 2);
+	}
 }
 
-void	pxb_perror_exit(int err)
+void	pxb_perror_exit(int err, char *param)
 {
-	pxb_error_msg(err);
+	pxb_error_msg(err, param);
 	exit (err);
 }

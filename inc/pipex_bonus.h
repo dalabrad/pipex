@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:03:24 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/17 17:02:42 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:53:30 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 enum e_pxb_error
 {
 	ERR_HEREDOC = -12,
-	ERR_RDHEREDOC = -13
+	ERR_RDHEREDOC = -13,
+	ERR_HEREDOC_EOF = -14
 };
 
 typedef struct s_pipex_bonus
@@ -31,6 +32,7 @@ typedef struct s_pipex_bonus
 	int		n_cmd;
 	pid_t	*pid;
 	bool	here_doc;
+	char	*limiter;
 	char	**paths_array;
 	char	**cmd_argv;
 	char	*cmd_path;
@@ -39,8 +41,8 @@ typedef struct s_pipex_bonus
 
 //  pipex_error_msg_bonus.c
 
-void	pxb_error_msg(int err);
-void	pxb_perror_exit(int err);
+void	pxb_error_msg(int err, char *param);
+void	pxb_perror_exit(int err, char *param);
 
 //	pipex_free_close_bonus.c
 

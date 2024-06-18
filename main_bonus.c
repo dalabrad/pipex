@@ -6,16 +6,45 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:03:24 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/17 17:45:22 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:07:52 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/pipex_bonus.h"
 
+static void	pxb_here_doc(t_pipex_bonus *pipex, char **argv)
+{
+		char *line;
+
+		pipex->limiter = ft_strjoin(argv[2], "\n");
+		if (!pipex->limiter)
+			malloc_error_exit();
+		while (1) //here_doc reading implementation.
+		{
+			write (1, "> ", 2);
+			line = get_next_line(0);
+			if (!line)
+			{
+				free (pipex->limiter);
+				ft_putchar_fd('\n', 2);
+				pxb_perror_exit(ERR_HEREDOC_EOF, argv[2]);
+			}
+			if (!ft_strncmp(line, pipex->limiter, ft_strlen(line)))
+			{
+				free(line);
+				break ;
+			}
+			write(pipex->in_fd, line, ft_strlen(line));
+			free(line);
+		}
+		close(pipex->in_fd);
+		free (pipex->limiter);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
-	char			*line;
-	char			*limiter;
+/* 	char			*line;
+	char			*limiter; */
 	int				i;
 	t_pipex_bonus	pipex;
 	
@@ -23,6 +52,10 @@ int	main(int argc, char **argv, char **envp)
 	{
 		pipex.here_doc = true;
 		pipex.n_cmd = 2;
+		pipex.in_fd = open("/tmp/.here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0000644);
+		if (pipex.in_fd  < 0)
+			pxb_perror_exit(ERR_HEREDOC, NULL);
+		pxb_here_doc(&pipex, argv);
 	}
 	else if (ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])) && argc >= 5)
 	{
@@ -32,32 +65,8 @@ int	main(int argc, char **argv, char **envp)
 		pipex.n_cmd = argc - 3; */
 	}
 	else
-		pxb_perror_exit(INV_ARGS);
-	// The rest is for pipex.here_doc == true.
-	pipex.in_fd = open("/tmp/.here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0000644);
-	if (pipex.in_fd  < 0)
-		pxb_perror_exit(ERR_HEREDOC);
-	limiter = ft_strjoin(argv[2], "\n");
-	if (!limiter)
-		malloc_error_exit();
-	while (1) //here_doc reading implementation.
-	{
-		write (1, "> ", 2);
-		line = get_next_line(0);
-		if (!ft_strncmp(line, limiter, ft_strlen(line)) || !line)
-		{
-			free(line);
-			line = NULL;
-			break ;
-		}
-		write(pipex.in_fd, line, ft_strlen(line));
-		free(line);
-		line = NULL;
-	}
-	close(pipex.in_fd);
-	free (limiter);
-	limiter = NULL;
-	pipex.pipe = (int *)malloc((pipex.n_cmd - 1) * 2 * sizeof(int)); //preparing the pipes
+		pxb_perror_exit(INV_ARGS, NULL);
+	pipex.pipe = (int *)malloc((pipex.n_cmd - 1) * 2 * sizeof(int)); //allocating the pipes
 	i = 0;
 	while (i < (pipex.n_cmd - 1)) //piping
 	{
@@ -70,7 +79,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	pipex.in_fd = open("/tmp/.here_doc", O_RDONLY, 0000644); //opening the here_doc for reading
 	if (pipex.in_fd < 0)
-		pxb_perror_exit(ERR_RDHEREDOC);
+		pxb_perror_exit(ERR_RDHEREDOC, NULL);
 	pipex.out_fd = open (argv[5], O_APPEND | O_CREAT | O_WRONLY, 0000644); //opening the outfile in append mode
 	if (pipex.out_fd < 0)
 		px_perror_exit(argv[5], NO_FILE);
