@@ -6,14 +6,14 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:03:24 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/18 11:29:18 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:33:02 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/pipex_bonus.h"
 
 /*
- * Here_doc (reading from stdin) implementation
+ * Here_doc (reading from stdin) implementation.
 */
 static void	pxb_here_doc(t_pipex_bonus *pipex, char **argv)
 {
@@ -44,6 +44,9 @@ static void	pxb_here_doc(t_pipex_bonus *pipex, char **argv)
 	free (pipex->limiter);
 }
 
+/*
+ * Function to create the pipes in pipex.pipe.
+*/
 static void	pxb_create_pipes(t_pipex_bonus *pipex)
 {
 	int	i;
