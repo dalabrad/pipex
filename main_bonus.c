@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:03:24 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/18 12:20:58 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:17:37 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,23 @@ static void	pxb_create_pipes(t_pipex_bonus *pipex)
 	}
 }
 
+/* static bool pxb_child_from_parent(t_pipex_bonus pipex, int child_index)
+{
+	int	i;
+
+	i = 0;
+	while (i < child_index)
+	{
+		if (pipex.pid[i] == 0)
+			return (false);
+	}
+	return (true);
+} */
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex_bonus	pipex;
+	int				i;
 
 	if (!ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])) && argc == 6)
 	{
@@ -97,18 +111,14 @@ int	main(int argc, char **argv, char **envp)
 		px_perror_exit(argv[5], NO_FILE);
 	pipex.paths_array = pipex_path_array(envp);
 	pipex.pid = (pid_t *)malloc(sizeof(pid_t) * pipex.n_cmd);
-	pipex.pid[0] = fork();
-	if (pipex.pid[0] == 0)
-		pxb_first_child(&pipex, argv, envp);
-	waitpid(pipex.pid[0], NULL, 0);
-	ft_putstr_fd("First child finished\n", 2);
-	pipex.pid[1] = fork();
-	if (pipex.pid[1] == 0 && pipex.pid[0] != 0)
-		pxb_last_child(&pipex, argv, envp);
-	// ERROR DOING EXECVE(wc -l) IN SECOND CHILD, DKH TO SOLVE IT
-	waitpid(pipex.pid[1], NULL, 0);
-	if (pipex.pid[0] && pipex.pid[1])
-		ft_putstr_fd("Second child finished\n", 2);
+	i = 0;
+	while (i < pipex.n_cmd)
+	{
+		pipex.pid[i] = fork();
+		if (pipex.pid[i] == 0)
+			pxb_child_selector(&pipex, argv, envp, i);
+		i++;
+	}
 	pxb_freeparent_closefd(&pipex);
 	ft_printf("Parent finished.\n");
 	return (0);
