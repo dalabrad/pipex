@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:03:24 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/18 17:19:54 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:25:38 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ static void	pxb_open_files(t_pipex_bonus *pipex, int argc, char **argv)
 		px_perror_exit(argv[5], NO_FILE);
 }
 
-static void pxb_init_pipex(t_pipex_bonus *pipex, int argc, char **argv, char **envp)
+static void	pxb_init_pipex(t_pipex_bonus *pipex, int argc, char **argv,
+				char **envp)
 {
 	if (pipex->here_doc)
 		pipex->n_cmd = 2;
