@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:03:24 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/18 16:38:04 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:51:45 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct s_pipex_bonus
 	int		n_cmd;
 	pid_t	*pid;
 	bool	here_doc;
-	char	*limiter;
 	char	**paths_array;
 	char	**cmd_argv;
 	char	*cmd_path;
@@ -55,5 +54,9 @@ void	pxb_first_child(t_pipex_bonus *pipex, char **argv, char **envp);
 void	pxb_last_child(t_pipex_bonus *pipex, char **argv, char **envp);
 void	pxb_child_selector(t_pipex_bonus *pipex, char **argv, char **envp,
 			int i);
+
+//	pipex_here_doc_bonus.c
+
+void	pxb_here_doc(t_pipex_bonus *pipex, char **argv);
 
 #endif
