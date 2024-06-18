@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:48:52 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/18 16:42:32 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:44:14 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	pxb_middle_child(t_pipex_bonus *pipex, char **argv, char **envp, int i)
 	pxb_close_pipes(pipex);
 	pipex->cmd_argv = ft_split(argv[4], ' ');
 	pipex->cmd_path = get_cmd_path(pipex->cmd_argv[0], pipex->paths_array);
-	ft_putchar_fd('0' + i + 1);
+	ft_putchar_fd('0' + i + 1, 2);
 	ft_putstr_fd("º command executing...\n", 2);
 	execve(pipex->cmd_path, pipex->cmd_argv, envp);
 }
