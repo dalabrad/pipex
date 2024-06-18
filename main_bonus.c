@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:03:24 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/18 11:33:02 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/18 12:20:58 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ static void	pxb_create_pipes(t_pipex_bonus *pipex)
 	int	i;
 
 	pipex->pipe = (int *)malloc((pipex->n_cmd - 1) * 2 * sizeof(int));
+	if (!pipex->pipe)
+		malloc_error_exit();
 	i = 0;
 	while (i < (pipex->n_cmd - 1))
 	{
