@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:07:08 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/19 11:09:36 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:58:39 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ void	pxb_close_pipes(t_pipex_bonus *pipex)
 	}
 }
 
+void	pxb_free_parent(t_pipex_bonus *pipex)
+{
+	free (pipex->pipe);
+	free_array(pipex->paths_array);
+	free (pipex->pid);
+}
+
 void	pxb_freeparent_closefd(t_pipex_bonus *pipex)
 {
 	int	i;
@@ -37,9 +44,7 @@ void	pxb_freeparent_closefd(t_pipex_bonus *pipex)
 	}
 	close(pipex->in_fd);
 	close(pipex->out_fd);
-	free (pipex->pipe);
-	free_array(pipex->paths_array);
-	free (pipex->pid);
+	pxb_free_parent(pipex);
 	if (pipex->here_doc)
 		unlink ("/tmp/.here_doc");
 }

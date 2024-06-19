@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:03:24 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/19 11:25:35 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:58:33 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	pxb_cmd_fail_exit(t_pipex_bonus *pipex);
 //	pipex_free_close_bonus.c
 
 void	pxb_close_pipes(t_pipex_bonus *pipex);
+void	pxb_free_parent(t_pipex_bonus *pipex);
 void	pxb_freeparent_closefd(t_pipex_bonus *pipex);
 
 //	pipex_childs_bonus.c
