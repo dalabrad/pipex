@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:48:52 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/18 19:37:30 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:33:20 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,16 @@ void	pxb_first_child(t_pipex_bonus *pipex, char **argv, char **envp)
 		pipex->cmd_argv = ft_split(argv[3], ' ');
 	else
 		pipex->cmd_argv = ft_split(argv[2], ' ');
+	if (!pipex->cmd_argv)
+		malloc_error_exit();
 	pipex->cmd_path = get_cmd_path(pipex->cmd_argv[0], pipex->paths_array);
-	ft_putstr_fd("First command executing...\n", 2);
-	execve(pipex->cmd_path, pipex->cmd_argv, envp);
+	if (!pipex->cmd_path)
+	{
+		pxb_cmd_not_found(pipex);
+		return ;
+	}
+	if (execve(pipex->cmd_path, pipex->cmd_argv, envp) == -1)
+		pxb_cmd_fail_exit(pipex);
 }
 
 void	pxb_last_child(t_pipex_bonus *pipex, char **argv, char **envp)
@@ -39,9 +46,16 @@ void	pxb_last_child(t_pipex_bonus *pipex, char **argv, char **envp)
 		pipex->cmd_argv = ft_split(argv[4], ' ');
 	else
 		pipex->cmd_argv = ft_split(argv[pipex->n_cmd + 1], ' ');
+	if (!pipex->cmd_argv)
+		malloc_error_exit();
 	pipex->cmd_path = get_cmd_path(pipex->cmd_argv[0], pipex->paths_array);
-	ft_putstr_fd("last command executing...\n", 2);
-	execve(pipex->cmd_path, pipex->cmd_argv, envp);
+	if (!pipex->cmd_path)
+	{
+		pxb_cmd_not_found(pipex);
+		return ;
+	}
+	if (execve(pipex->cmd_path, pipex->cmd_argv, envp) == -1)
+		pxb_cmd_fail_exit(pipex);
 }
 
 void	pxb_middle_child(t_pipex_bonus *pipex, char **argv, char **envp, int i)
@@ -52,12 +66,22 @@ void	pxb_middle_child(t_pipex_bonus *pipex, char **argv, char **envp, int i)
 		px_perror_exit(NULL, DUP_ERR);
 	pxb_close_pipes(pipex);
 	pipex->cmd_argv = ft_split(argv[i + 2], ' ');
+	if (!pipex->cmd_argv)
+		malloc_error_exit();
 	pipex->cmd_path = get_cmd_path(pipex->cmd_argv[0], pipex->paths_array);
-	ft_putchar_fd('0' + i + 1, 2);
-	ft_putstr_fd("º command executing...\n", 2);
-	execve(pipex->cmd_path, pipex->cmd_argv, envp);
+	if (!pipex->cmd_path)
+	{
+		pxb_cmd_not_found(pipex);
+		return ;
+	}
+	if (execve(pipex->cmd_path, pipex->cmd_argv, envp) == -1)
+		pxb_cmd_fail_exit(pipex);
 }
 
+/*
+ * This function calls the specific child process, given the process (child)
+ * index i and the pipex->n_cmd (number of comands).
+ */
 void	pxb_child_selector(t_pipex_bonus *pipex, char **argv,
 			char **envp, int i)
 {

@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:07:08 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/18 16:04:19 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:09:36 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	pxb_freeparent_closefd(t_pipex_bonus *pipex)
 	while (i < pipex->n_cmd)
 	{
 		waitpid(pipex->pid[i], NULL, 0);
-		ft_printf("Child %d finished.\n", i + 1);
 		i++;
 	}
 	close(pipex->in_fd);

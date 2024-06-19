@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:03:24 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/18 19:34:54 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:08:52 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,5 @@ int	main(int argc, char **argv, char **envp)
 		i++;
 	}
 	pxb_freeparent_closefd(&pipex);
-	ft_printf("Parent finished.\n");
 	return (0);
 }
