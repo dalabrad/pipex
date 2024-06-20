@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 11:45:20 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/20 10:25:56 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:01:44 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	second_child(t_pipex *pipex, char **argv, char **envp)
 {
 	if (pipex->out_fd < 0)
 	{
-		if (access(argv[4], W_OK) == -1 && !access(argv[0], F_OK))
+		if (access(argv[4], W_OK) == -1 && !access(argv[4], F_OK))
 			pipex_error_msg(argv[4], NO_PERM);
 		else
 			pipex_error_msg(argv[4], NO_MEMORY);

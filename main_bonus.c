@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:03:24 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/19 11:57:44 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:17:47 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,10 @@ static void	pxb_open_files(t_pipex_bonus *pipex, int argc, char **argv)
 		pipex->in_fd = open("/tmp/.here_doc", O_RDONLY, 0000644);
 	else
 		pipex->in_fd = open(argv[1], O_RDONLY);
-	if (pipex->in_fd < 0)
-		pxb_perror_exit(ERR_RDHEREDOC, NULL);
 	if (pipex->here_doc)
 		pipex->out_fd = open (argv[5], O_APPEND | O_CREAT | O_WRONLY, 0000644);
 	else
 		pipex->out_fd = open(argv[argc - 1], O_TRUNC | O_CREAT | 01, 0000644);
-	if (pipex->out_fd < 0)
-		px_perror_exit(argv[5], NO_FILE);
 }
 
 static void	pxb_init_pipex(t_pipex_bonus *pipex, int argc, char **argv,

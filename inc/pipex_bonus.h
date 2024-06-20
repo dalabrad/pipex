@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:03:24 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/19 11:58:33 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:04:00 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,10 @@ void	pxb_child_selector(t_pipex_bonus *pipex, char **argv, char **envp,
 //	pipex_here_doc_bonus.c
 
 void	pxb_here_doc(t_pipex_bonus *pipex, char **argv);
+
+//	pipex_check_files_bonus.c
+
+void	pxb_check_infile(t_pipex_bonus *pipex, char **argv);
+void	pxb_check_outfile(t_pipex_bonus *pipex, char **argv);
 
 #endif
