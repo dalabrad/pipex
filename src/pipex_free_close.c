@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 13:31:56 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/15 11:46:16 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/20 10:37:52 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,15 @@ void	free_array(char	**array)
 /*
  *
  * This functions frees all the memory allocated
- * for a child process if the command doesn't exist.
+ * for a child process if the command doesn't exist
+ * or execve fails.
  * 
 */
 void	free_child(t_pipex *pipex)
 {
 	free_array(pipex->cmd_argv);
+	if (pipex->cmd_path)
+		free(pipex->cmd_path);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 11:45:20 by dalabrad          #+#    #+#             */
-/*   Updated: 2024/06/14 10:59:02 by dalabrad         ###   ########.fr       */
+/*   Updated: 2024/06/20 10:25:56 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	first_child(t_pipex *pipex, char **argv, char **envp)
 	if (dup2(pipex->fd_pipe[1], STDOUT_FILENO) == -1)
 		px_perror_exit(NULL, DUP_ERR);
 	close(pipex->fd_pipe[0]);
+	close(pipex->fd_pipe[1]);
 	if (dup2(pipex->in_fd, STDIN_FILENO) == -1)
 		px_perror_exit(NULL, DUP_ERR);
 	pipex->cmd_argv = ft_split(argv[2], ' ');
@@ -62,9 +63,9 @@ void	second_child(t_pipex *pipex, char **argv, char **envp)
 			pipex_error_msg(argv[4], NO_MEMORY);
 		return ;
 	}
-	waitpid(pipex->pid1, NULL, 0);
 	if (dup2(pipex->fd_pipe[0], STDIN_FILENO) == -1)
 		px_perror_exit(NULL, DUP_ERR);
+	close(pipex->fd_pipe[0]);
 	close(pipex->fd_pipe[1]);
 	if (dup2(pipex->out_fd, STDOUT_FILENO) == -1)
 		px_perror_exit(NULL, DUP_ERR);
