@@ -1,5 +1,4 @@
 NAME = pipex
-NAME_BONUS = pipex_bonus
 
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -44,17 +43,15 @@ $(PIPEX_BONUS_LIB): $(OBJS_BONUS)
 	ar rcs $(PIPEX_BONUS_LIB) $(OBJS_BONUS)
 	@echo "$(GREEN)pipex_bonus.a created successfully.$(RESET)"
 
-$(NAME_BONUS): $(LIBFT) $(PIPEX_LIB) $(PIPEX_BONUS_LIB) $(MAIN_BONUS)
-	@echo "$(YELLOW)Compiling ./pipex_bonus executable...$(RESET)"
-	$(CC) $(CFLAGS) -o $(NAME_BONUS) $(MAIN_BONUS) $(PIPEX_LIB) $(PIPEX_BONUS_LIB) $(LIBFT)
-	@echo "$(GREEN)./pipex_bonus executable created successfully.$(RESET)"
-
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-bonus : $(LIBFT) $(PIPEX_LIB) $(PIPEX_BONUS_LIB) $(NAME_BONUS)
+bonus : $(LIBFT) $(PIPEX_LIB) $(PIPEX_BONUS_LIB) $(MAIN_BONUS)
+	@echo "$(YELLOW)Compiling ./pipex bonus executable...$(RESET)"
+	$(CC) $(CFLAGS) -o $(NAME) $(MAIN_BONUS) $(PIPEX_LIB) $(PIPEX_BONUS_LIB) $(LIBFT)
+	@echo "$(GREEN)./pipex bonus executable created successfully.$(RESET)"
 
-all: $(LIBFT) $(PIPEX_LIB) $(PIPEX_BONUS_LIB) $(NAME) $(NAME_BONUS)
+all: bonus
 
 clean:
 	@echo "$(YELLOW)Deleting all the object files...$(RESET)"
@@ -64,7 +61,7 @@ clean:
 
 fclean: clean
 	@echo "$(YELLOW)Deleting the object files, *.a and executable file...$(RESET)"
-	@$(RM) $(PIPEX_LIB) $(PIPEX_BONUS_LIB) $(NAME) $(NAME_BONUS)
+	@$(RM) $(PIPEX_LIB) $(PIPEX_BONUS_LIB) $(NAME) 
 	@make -C $(LIBFT_DIR) fclean
 	@echo "$(GREEN)Everything deleted succesfully.$(RESET)"
 
